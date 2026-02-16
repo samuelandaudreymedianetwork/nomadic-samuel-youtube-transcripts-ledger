@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Nomadic Samuel YouTube Transcripts (Curated, EN — Full Transcripts Only)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "content_hash",
+    "video_id",
+    "url",
+    "position",
+    "published_at",
+    "video_date",
+    "title",
+    "youtube_title",
+    "lang",
+    "channel",
+    "domain",
+    "source",
+    "caption_source",
+    "caption_track_kind",
+    "view_count",
+    "tags",
+    "tags_list",
+    "text",
+    "text_with_breaks",
+    "srt",
+    "original_filename",
+    "missing_transcript"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "content_hash": {
+      "type": "string"
+    },
+    "video_id": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    },
+    "position": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "published_at": {
+      "type": "string"
+    },
+    "video_date": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "youtube_title": {
+      "type": "string"
+    },
+    "lang": {
+      "type": "string"
+    },
+    "channel": {
+      "type": "string"
+    },
+    "domain": {
+      "type": "string"
+    },
+    "source": {
+      "type": "string"
+    },
+    "caption_source": {
+      "type": "string"
+    },
+    "caption_track_kind": {
+      "type": "string"
+    },
+    "view_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "tags": {
+      "type": "string"
+    },
+    "tags_list": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "text": {
+      "type": "string"
+    },
+    "text_with_breaks": {
+      "type": "string"
+    },
+    "srt": {
+      "type": "string"
+    },
+    "original_filename": {
+      "type": "string"
+    },
+    "missing_transcript": {
+      "type": "boolean"
+    }
+  }
+}
