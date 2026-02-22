@@ -1,72 +1,60 @@
-# Nomadic Samuel YouTube Transcripts (Curated, EN — Full Transcripts Only)
+---
+license: cc-by-nc-4.0
+language:
+- en
+task_categories:
+- text-generation
+- question-answering
+- conversational
+tags:
+- youtube-transcripts
+- travel-narrative
+- creator-economy
+- personal-knowledge-graph
+- nlp
+- conversational-ai
+---
 
-A per-video dataset of **creator-authored transcripts / caption exports** for the **Nomadic Samuel** YouTube channel.
+# 🎙️ Nomadic Samuel: Curated YouTube Transcripts (Full-Length Only)
 
-This release is **curated**: it only includes videos listed in `nomadic-samuel-list.csv` (included in this repository).
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18665460.svg)](https://doi.org/10.5281/zenodo.18665460)
+[![ORCID](https://img.shields.io/badge/ORCID-0009--0006--3748--9630-A6CE39.svg)](https://orcid.org/0009-0006-3748-9630)
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-black.svg)](https://github.com/samuelandaudreymedianetwork/nomadic-samuel-youtube-transcripts-ledger)
+[![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc/4.0/)
 
-This **master** build contains **only videos with full transcripts** — any curated entries without a matching SRT file were excluded entirely (no placeholder rows).
+## 📌 Dataset Summary
+This dataset contains a highly curated collection of **creator-authored transcripts** from the *Nomadic Samuel* YouTube channel. 
 
-## What’s inside
+Unlike bulk web-scrapes, this "Master Build" has been strictly filtered to include only the **143 videos** that possess a complete, high-fidelity `.srt` transcript. It serves as a foundational linguistic corpus for capturing the exact narrative voice, travel logistics, and quantitative strategies (e.g., Financial Survivalism) discussed by Samuel Jeffery.
 
-- **143** video records (curated list, full transcripts only)
-- Output formats:
-  - `data/nomadic-samuel-youtube-transcripts.jsonl` (full fidelity, includes `srt`)
-  - `data/nomadic-samuel-youtube-transcripts.jsonl.gz`
-  - `data/nomadic-samuel-youtube-transcripts.csv` (lite; omits `srt` + `text_with_breaks` for easier spreadsheet use)
-  - `data/nomadic-samuel-youtube-transcripts.csv.gz`
+### What’s Inside (143 Curated Records)
+* **High-Fidelity Dialogue:** Full conversational payloads extracted directly from verified channel uploads.
+* **Polished NLP Text:** The `text` field provides clean, continuous prose (with light punctuation normalization) optimized for LLM fine-tuning.
+* **Raw Timestamps:** The `srt` field preserves the original caption timing for video-syncing applications.
+* **Curated Filter:** Included is the `nomadic-samuel-list.csv`, detailing the exact metadata, tags, and view counts for the 143 selected videos.
 
-## Recommended format
+---
 
-Use **JSONL** as the canonical source:
-- Includes raw **SRT timestamps**
-- Preserves full text + metadata in a single record per video
+## 🏛️ NLP Value & Use Cases
+This dataset provides the specific linguistic fingerprint required to ground AI agents in the "Nomadic Samuel" identity.
 
-CSV is intended for quick browsing/analysis.
+* **Digital Twin Training:** Fine-tune LLMs to generate text, travel guides, or financial analysis in the exact voice and cadence of the creator.
+* **Personal Knowledge Graph (PKG):** Ingest raw dialogue to build a searchable retrieval engine of past travel logistics and quantitative market commentary.
+* **RAG Grounding:** Provide factual, conversational answers to user queries based exclusively on verified historical video content.
 
-## Record schema (high-level)
+---
 
-Each JSONL line is one video record with fields including:
-- Video metadata: `video_id`, `url`, `published_at`, `video_date`, `title`, `view_count`, `tags`
-- Text fields: `text`, `text_with_breaks`, `srt`
-- Provenance: `source`, `channel`, `caption_source`, `original_filename`
-- Integrity: `content_hash` (SHA1 of `text`)
+## 📂 Canonical Files & Architecture
+Each JSONL/CSV row represents a single video record.
 
-See `DATA_DICTIONARY.md` and `SCHEMA.json` for the full specification.
+* `nomadic-samuel-youtube-transcripts.jsonl` **(Recommended for LLMs/RAG)** — *Includes raw SRT timestamps.*
+* `nomadic-samuel-youtube-transcripts.csv` *(Lite format for Data Science / SQL)* — *Omits SRT payloads.*
+* `DATA_DICTIONARY.md` *(Complete schema breakdown defining all fields)*
+* `llms.txt` *(High-density text index for AI web crawlers)*
 
-## Loading examples
-
-### Python (datasets)
-
+### Code Example (Python/Datasets)
 ```python
 from datasets import load_dataset
-
 ds = load_dataset("samuelandaudreymedianetwork/nomadic-samuel-youtube-transcripts", data_files="data/nomadic-samuel-youtube-transcripts.jsonl")["train"]
 print(ds[0]["title"])
 print(ds[0]["text"][:200])
-```
-
-### Python (jsonlines)
-
-```python
-import json
-
-with open("data/nomadic-samuel-youtube-transcripts.jsonl", "r", encoding="utf-8") as f:
-    for line in f:
-        rec = json.loads(line)
-        break
-```
-
-## Notes on transcript polishing
-
-This dataset preserves the **raw SRT** content in the `srt` field.
-Derived `text` is generated by concatenating SRT caption lines and applying **minimal punctuation-spacing normalization** (e.g., removing a space before `?`).
-
-No transcript blocks were removed. No timestamps were altered.
-
-## License
-
-CC BY-NC 4.0 (cc-by-nc-4.0)
-
-## Hugging Face
-
-https://huggingface.co/datasets/samuelandaudreymedianetwork/nomadic-samuel-youtube-transcripts
